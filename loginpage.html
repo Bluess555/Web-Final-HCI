@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Microsoft Style</title>
+    <link rel="stylesheet" href="styling.css">
+    <style>
+        /* Style untuk password wrapper */
+        .password-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 45px !important;
+            box-sizing: border-box;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            background: transparent !important;
+            border: none !important;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            margin: 0;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            color: #757575;
+            width: 28px;
+            height: 28px;
+            z-index: 10;
+            pointer-events: auto !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            transition: color 0.2s ease;
+            font-family: 'Segoe UI', 'Material Icons', 'Font Awesome 6 Free', system-ui, sans-serif;
+        }
+        .toggle-password:hover {
+            color: #202124;
+        }
+        .toast-success {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2e7d32;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+        .toast-success.show {
+            opacity: 1;
+        }
+        
+        /* Ikon standar menggunakan SVG untuk tampilan profesional */
+        .eye-icon, .eye-slash-icon {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login_card">
+        <div class="microsopt">
+            <h2>&#8862;</h2>
+            <h2>Microsoft</h2>
+        </div>
+        <h2>Sign in</h2>
+        <div class="emailpassword">
+            <input type="email" id="email" placeholder="Email, Phone, Skype">
+            
+            <div class="password-wrapper" id="passwordWrapper">
+                <input type="password" id="password" placeholder="Password">
+                <button type="button" class="toggle-password" id="togglePasswordBtn" aria-label="Show password">
+                    <!-- SVG Ikon Mata Standar (seperti di website pada umumnya) -->
+                    <svg id="eyeIconOpen" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg id="eyeIconClosed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="remember-row">
+            <input type="checkbox" id="ceklis">
+            <label for="ceklis">Remember me</label>
+        </div>
+
+        <button type="button" class="loginuser" id="loginBtn">Login</button>
+    </div>
+
+    <div id="loginToast" class="toast-success">✅ Berhasil login! Mengalihkan...</div>
+
+    <script>
+        (function() {
+            'use strict';
+            
+            // =============================================
+            // 1. AMBIL SEMUA ELEMENT
+            // =============================================
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.getElementById('togglePasswordBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const rememberCheckbox = document.getElementById('ceklis');
+            const emailpasswordDiv = document.querySelector('.emailpassword');
+            const toastElement = document.getElementById('loginToast');
+            
+            // Ambil SVG elements
+            const eyeOpenSvg = document.getElementById('eyeIconOpen');
+            const eyeClosedSvg = document.getElementById('eyeIconClosed');
+            
+            // =============================================
+            // 2. PERBAIKI PLACEHOLDER KAPITALISASI
+            // =============================================
+            if (emailInput && emailInput.placeholder === 'Email, phone, Skype') {
+                emailInput.placeholder = 'Email, Phone, Skype';
+            }
+            if (passwordInput && passwordInput.placeholder === 'password') {
+                passwordInput.placeholder = 'Password';
+            }
+            
+            // =============================================
+            // 3. PASSWORD TOGGLE DENGAN SVG PROFESIONAL
+            // =============================================
+            if (toggleBtn && passwordInput) {
+                // Clean slate dengan clone
+                const newToggleBtn = toggleBtn.cloneNode(true);
+                toggleBtn.parentNode.replaceChild(newToggleBtn, toggleBtn);
+                const finalToggleBtn = document.getElementById('togglePasswordBtn');
+                
+                // Re-acquire SVG elements setelah clone
+                const finalEyeOpen = finalToggleBtn.querySelector('#eyeIconOpen');
+                const finalEyeClosed = finalToggleBtn.querySelector('#eyeIconClosed');
+                
+                let isVisible = false;
+                
+                function updateToggleUI() {
+                    if (isVisible) {
+                        // Password terlihat
+                        passwordInput.type = 'text';
+                        if (finalEyeOpen) finalEyeOpen.style.display = 'none';
+                        if (finalEyeClosed) finalEyeClosed.style.display = 'inline-block';
+                        finalToggleBtn.setAttribute('aria-label', 'Hide password');
+                    } else {
+                        // Password tersembunyi
+                        passwordInput.type = 'password';
+                        if (finalEyeOpen) finalEyeOpen.style.display = 'inline-block';
+                        if (finalEyeClosed) finalEyeClosed.style.display = 'none';
+                        finalToggleBtn.setAttribute('aria-label', 'Show password');
+                    }
+                }
+                
+                // Event click untuk toggle
+                finalToggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                    isVisible = !isVisible;
+                    updateToggleUI();
+                    passwordInput.focus();
+                });
+                
+                // Mencegah default behavior
+                finalToggleBtn.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+                
+                // Style inline untuk memastikan tombol selalu terlihat
+                finalToggleBtn.style.display = 'flex';
+                finalToggleBtn.style.alignItems = 'center';
+                finalToggleBtn.style.justifyContent = 'center';
+                finalToggleBtn.style.position = 'absolute';
+                finalToggleBtn.style.right = '12px';
+                finalToggleBtn.style.top = '50%';
+                finalToggleBtn.style.transform = 'translateY(-50%)';
+                finalToggleBtn.style.background = 'transparent';
+                finalToggleBtn.style.border = 'none';
+                finalToggleBtn.style.cursor = 'pointer';
+                finalToggleBtn.style.padding = '0';
+                
+                // Inisialisasi UI
+                updateToggleUI();
+            }
+            
+            // =============================================
+            // 4. ERROR MESSAGE HANDLER
+            // =============================================
+            let errorMsg = document.getElementById('login-error-msg');
+            if (!errorMsg && emailpasswordDiv) {
+                errorMsg = document.createElement('p');
+                errorMsg.id = 'login-error-msg';
+                errorMsg.style.cssText = `
+                    color: #fff;
+                    background-color: #c0392b;
+                    padding: 8px 12px;
+                    margin-top: 8px;
+                    border-radius: 4px;
+                    font-size: 13px;
+                    display: none;
+                    margin-bottom: 0;
+                `;
+                emailpasswordDiv.insertAdjacentElement('afterend', errorMsg);
+            }
+            
+            function showError(message) {
+                if (errorMsg) {
+                    errorMsg.textContent = message;
+                    errorMsg.style.display = 'block';
+                } else {
+                    alert(message);
+                }
+            }
+            
+            function hideError() {
+                if (errorMsg) errorMsg.style.display = 'none';
+            }
+            
+            // =============================================
+            // 5. TOAST & REDIRECT
+            // =============================================
+            function showSuccessToastAndRedirect(email) {
+                sessionStorage.setItem('userEmail', email);
+                
+                if (rememberCheckbox && rememberCheckbox.checked) {
+                    localStorage.setItem('rememberedEmail', email);
+                } else {
+                    localStorage.removeItem('rememberedEmail');
+                }
+                
+                if (toastElement) {
+                    toastElement.classList.add('show');
+                }
+                
+                setTimeout(() => {
+                    window.location.href = 'homepage.html';
+                }, 1000);
+            }
+            
+            // =============================================
+            // 6. LOGIN VALIDATION
+            // =============================================
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function() {
+                    const email = emailInput ? emailInput.value.trim() : '';
+                    const password = passwordInput ? passwordInput.value.trim() : '';
+                    
+                    if (!email && !password) {
+                        showError('Email dan password tidak boleh kosong!');
+                        return;
+                    }
+                    if (!email) {
+                        showError('Email tidak boleh kosong!');
+                        return;
+                    }
+                    if (!password) {
+                        showError('Password tidak boleh kosong!');
+                        return;
+                    }
+                    if (!email.endsWith('@binus.ac.id')) {
+                        showError('Email hanya bisa menggunakan @binus.ac.id!');
+                        return;
+                    }
+                    
+                    hideError();
+                    showSuccessToastAndRedirect(email);
+                });
+            }
+            
+            // =============================================
+            // 7. HIDE ERROR SAAT MENGETIK
+            // =============================================
+            if (emailInput) emailInput.addEventListener('input', hideError);
+            if (passwordInput) passwordInput.addEventListener('input', hideError);
+            
+            
+            // =============================================
+            // 9. MUTATION OBSERVER UNTUK PROTECT TOMBOL MATA
+            // =============================================
+            const passwordWrapper = document.getElementById('passwordWrapper');
+            if (passwordWrapper) {
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.removedNodes.length > 0) {
+                            const checkBtn = document.getElementById('togglePasswordBtn');
+                            if (!checkBtn) {
+                                // Recovery tombol mata jika hilang
+                                const wrapper = document.getElementById('passwordWrapper');
+                                if (wrapper) {
+                                    const newBtn = document.createElement('button');
+                                    newBtn.type = 'button';
+                                    newBtn.className = 'toggle-password';
+                                    newBtn.id = 'togglePasswordBtn';
+                                    newBtn.setAttribute('aria-label', 'Show password');
+                                    newBtn.innerHTML = `
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    `;
+                                    newBtn.style.cssText = `
+                                        position: absolute;
+                                        right: 12px;
+                                        background: transparent;
+                                        border: none;
+                                        cursor: pointer;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                    `;
+                                    
+                                    let vis = false;
+                                    newBtn.addEventListener('click', function(e) {
+                                        e.preventDefault();
+                                        vis = !vis;
+                                        const pwd = document.getElementById('password');
+                                        if (pwd) {
+                                            pwd.type = vis ? 'text' : 'password';
+                                            newBtn.innerHTML = vis ? `
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                                </svg>
+                                            ` : `
+                                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                </svg>
+                                            `;
+                                        }
+                                    });
+                                    wrapper.appendChild(newBtn);
+                                }
+                            }
+                        }
+                    });
+                });
+                observer.observe(passwordWrapper, { childList: true, subtree: false });
+            }
+            
+            console.log('✅ Login page siap - menggunakan ikon mata standar website');
+        })();
+    </script>
+</body>
+</html>

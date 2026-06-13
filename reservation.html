@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <link rel="stylesheet" href="styling.css">
+</head>
+<body>
+    <div class="card">
+  <h2 class="form-title">🗓 Room Reservation</h2>
+  <p class="form-sub">Isi form di bawah untuk mengajukan reservasi ruangan</p>
+
+  <div class="section-label">Informasi Jadwal</div>
+
+  <div class="grid2">
+    <div class="field">
+      <label for="res-date">📅 Date</label>
+      <input type="date" id="res-date">
+    </div>
+    <div class="field">
+      <label for="res-location">📍 Location</label>
+      <select id="res-location">
+        <option value="" disabled selected>Pilih lokasi</option>
+        <option>Gedung A - Lt. 1</option>
+        <option>Gedung A - Lt. 2</option>
+        <option>Gedung B - Lt. 1</option>
+        <option>Gedung B - Lt. 3</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="field">
+      <label for="res-type">🏠 Room Type</label>
+      <select id="res-type" onchange="updateUnit()">
+        <option value="" disabled selected>Pilih tipe</option>
+        <option value="discussion">Discussion Room</option>
+        <option value="theater">Mini Theater-Cafe</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="res-unit">🚪 Unit</label>
+      <select id="res-unit" disabled>
+        <option value="" disabled selected>Pilih tipe dulu</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>⏰ Time Slot <span class="slot-hint">(Select up to 2 slots)</span></label>
+    <div class="time-grid">
+      <div class="time-opt">
+        <input type="checkbox" name="slot" id="s1" value="09:00–11:00" onchange="handleSlotChange(this)">
+        <label for="s1">09:00 – 11:00</label>
+      </div>
+      <div class="time-opt">
+        <input type="checkbox" name="slot" id="s2" value="11:00–13:00" onchange="handleSlotChange(this)">
+        <label for="s2">11:00 – 13:00</label>
+      </div>
+      <div class="time-opt">
+        <input type="checkbox" name="slot" id="s3" value="13:00–15:00" onchange="handleSlotChange(this)">
+        <label for="s3">13:00 – 15:00</label>
+      </div>
+      <div class="time-opt">
+        <input type="checkbox" name="slot" id="s4" value="15:00–17:00" onchange="handleSlotChange(this)">
+        <label for="s4">15:00 – 17:00</label>
+      </div>
+      <div class="time-opt">
+        <input type="checkbox" name="slot" id="s5" value="17:00–18:50" onchange="handleSlotChange(this)">
+        <label for="s5">17:00 – 18:50</label>
+      </div>
+    </div>
+    <p class="slot-max-msg" id="slot-max-msg" style="display:none;">⚠️ Maximum 2 time slots allowed.</p>
+  </div>
+
+  <hr class="divider">
+  <div class="section-label">Informasi Member</div>
+
+  <div class="grid2">
+    <div class="field">
+      <label for="res-id">🪪 Nomor ID</label>
+      <input type="text" id="res-id" placeholder="Contoh: M-20241001">
+    </div>
+    <div class="field">
+      <label for="res-name">👤 Nama</label>
+      <input type="text" id="res-name" placeholder="Nama lengkap">
+    </div>
+  </div>
+
+  <hr class="divider">
+  <div class="section-label">Detail Reservasi</div>
+
+  <div class="field">
+    <label for="res-purpose">📝 Purpose / Tujuan</label>
+    <textarea id="res-purpose" placeholder="Jelaskan tujuan penggunaan ruangan..."></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-cancel" onclick="handleCancel()">✕ Cancel</button>
+    <button class="btn btn-save" onclick="handleSave()">💾 Save Reservation</button>
+  </div>
+</div>
+
+    <script src="scripting.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection | BINUS Library</title>
+    <link rel="stylesheet" href="styling.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h2>BINUS UNIVERSITY</h2>
+        </div>
+
+        <div class="homepagecari">
+            &#128269;
+            <input type="text" class="searchpunyahome" placeholder="Search collections: Text book, e-books, journals here">
+        </div>
+
+        <div>
+            <button class="loginbtn">Login</button>
+        </div>
+    </nav>
+
+    <nav class="navbarhome">
+        <ul>
+            <li><a href="homepage.html">Home</a></li>
+            <li><a href="#">Collection</a></li>
+            <li><a href="#">Recommendation</a></li>
+            <li><a href="#">Talk To Us</a></li>
+            <li><a href="#">Discussion Room</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">More Library Service</a></li>
+        </ul>
+    </nav>
+
+    <nav class="topnav">
+        <span class="brand">Wordcloud</span>
+        <span class="chevron">v</span>
+        <span class="breadcrumb">Home > <span>Search</span></span>
+    </nav>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-title">Advanced Search</div>
+            <div class="field-group">
+                <select id="col-search-type1" class="field-select">
+                    <option value="Title">Title</option>
+                    <option value="Author">Author</option>
+                    <option value="Collection Type">Collection Type</option>
+                    <option value="ISBN">ISBN</option>
+                </select>
+            </div>
+            <div class="field-group" id="col-search-input1-container">
+                <input type="text" id="col-search-value1" class="field-input" placeholder="Type here...">
+            </div>
+            
+            <div id="col-extra-search" style="display: none;">
+                <div class="field-group">
+                    <select id="col-search-type2" class="field-select">
+                        <option value="Title">Title</option>
+                        <option value="Author">Author</option>
+                        <option value="Collection Type">Collection Type</option>
+                        <option value="ISBN">ISBN</option>
+                    </select>
+                </div>
+                <div class="field-group" id="col-search-input2-container">
+                    <input type="text" id="col-search-value2" class="field-input" placeholder="Type here...">
+                </div>
+            </div>
+            
+            <div class="add-row" onclick="toggleCollectionExtraSearch()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                </svg>
+                Add filter
+            </div>
+            
+            <div class="sort-label">Sort By</div>
+            <div class="field-group">
+                <select id="col-sort-by" class="field-select">
+                    <option value="Newest">Newest</option>
+                    <option value="Oldest">Oldest</option>
+                    <option value="Rating">Rating</option>
+                    <option value="Title A-Z">Title A-Z</option>
+                </select>
+            </div>
+            <button class="btn-search" onclick="performCollectionSearch()">SEARCH</button>
+            <button class="btn-clear" onclick="clearCollectionSearch()">CLEAR ALL</button>
+            <button class="btn-filter-popup" onclick="openFilter()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+                </svg>
+                FILTER LANJUTAN
+            </button>
+        </aside>
+
+        <main>
+            <!-- TEXTBOOK -->
+            <section class="category-section" id="textbook-section">
+                <div class="book-card" data-title="Data Science" data-author="Kelleher, John D., Tierney, Brendan" data-type="Textbook" data-year="2023" data-rating="4.2" data-lang="English">
+                    <div class="book-thumb thumb-textbook"><span class="thumb-emoji">📊</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-textbook">Textbook</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.2</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Data Science</div>
+                        <div class="book-authors">Kelleher, John D., Tierney, Brendan</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>FX, JWC</div>
+                            <span class="meta-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Calculus: Early Transcendentals" data-author="Stewart, James" data-type="Textbook" data-year="2022" data-rating="4.9" data-lang="English">
+                    <div class="book-thumb thumb-textbook"><span class="thumb-emoji">🧮</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-textbook">Textbook</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                                <span class="rating-val">4.9</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Calculus: Early Transcendentals</div>
+                        <div class="book-authors">Stewart, James</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Kijang</div>
+                            <span class="meta-year">2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Pedoman Umum Ejaan Bahasa Indonesia" data-author="Risha Nillas, Hayatun Nufus" data-type="Textbook" data-year="2021" data-rating="3.5" data-lang="ID">
+                    <div class="book-thumb thumb-textbook"><span class="thumb-emoji">📚</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-textbook">Textbook</span>
+                            <span class="lang-badge lang-id">ID</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+                                <span class="rating-val">3.5</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Pedoman Umum Ejaan Bahasa Indonesia</div>
+                        <div class="book-authors">Risha Nillas, Hayatun Nufus</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Kijang</div>
+                            <span class="meta-year">2021</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Struktur Data dan Implementasinya dalam Kriptografi" data-author="Robin, Jusin, Robertus Hudi, Ronald Belferik, Wenripin Chandra" data-type="Textbook" data-year="2024" data-rating="4.0" data-lang="ID">
+                    <div class="book-thumb thumb-textbook"><span class="thumb-emoji">🔐</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-textbook">Textbook</span>
+                            <span class="lang-badge lang-id">ID</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.0</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Struktur Data dan Implementasinya dalam Kriptografi</div>
+                        <div class="book-authors">Robin, Jusin, Robertus Hudi, Ronald Belferik, Wenripin Chandra</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>LKC Medan Delipark</div>
+                            <span class="meta-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- E-BOOK -->
+            <section class="category-section" id="ebook-section">
+                <div class="book-card" data-title="Artificial Intelligence: A Modern Approach" data-author="Russell, Stuart J., Norvig, Peter" data-type="E-book" data-year="2022" data-rating="4.8" data-lang="English">
+                    <div class="book-thumb thumb-ebook"><span class="thumb-emoji">🤖</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-ebook">E-book</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                                <span class="rating-val">4.8</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Artificial Intelligence: A Modern Approach</div>
+                        <div class="book-authors">Russell, Stuart J., Norvig, Peter</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Digital Library</div>
+                            <span class="meta-year">2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Deep Learning with Python" data-author="Chollet, François" data-type="E-book" data-year="2021" data-rating="4.3" data-lang="English">
+                    <div class="book-thumb thumb-ebook"><span class="thumb-emoji">🧠</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-ebook">E-book</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.3</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Deep Learning with Python</div>
+                        <div class="book-authors">Chollet, François</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>E-shelf A2</div>
+                            <span class="meta-year">2021</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Pemrograman Web dengan Laravel" data-author="Santoso, Budi, Rahmawati, Dewi" data-type="E-book" data-year="2023" data-rating="3.2" data-lang="ID">
+                    <div class="book-thumb thumb-ebook"><span class="thumb-emoji">🌐</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-ebook">E-book</span>
+                            <span class="lang-badge lang-id">ID</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+                                <span class="rating-val">3.2</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Pemrograman Web dengan Laravel</div>
+                        <div class="book-authors">Santoso, Budi, Rahmawati, Dewi</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>E-shelf B1</div>
+                            <span class="meta-year">2023</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="移动应用开发实战指南" data-author="Zhang Wei, Li Mingzhe" data-type="E-book" data-year="2024" data-rating="4.1" data-lang="CN">
+                    <div class="book-thumb thumb-ebook"><span class="thumb-emoji">📱</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-ebook">E-book</span>
+                            <span class="lang-badge lang-cn">CN</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.1</span>
+                            </div>
+                        </div>
+                        <div class="book-title">移动应用开发实战指南</div>
+                        <div class="book-authors">Zhang Wei, Li Mingzhe</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>E-shelf C3</div>
+                            <span class="meta-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JOURNAL -->
+            <section class="category-section" id="journal-section">
+                <div class="book-card" data-title="Attention Is All You Need" data-author="Vaswani, Ashish, et al." data-type="E-article" data-year="2017" data-rating="5.0" data-lang="English">
+                    <div class="book-thumb thumb-journal"><span class="thumb-emoji">🔬</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-journal">E-article</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+                                <span class="rating-val">5.0</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Attention Is All You Need</div>
+                        <div class="book-authors">Vaswani, Ashish, et al.</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>NeurIPS Archive</div>
+                            <span class="meta-year">2017</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="BERT: Pre-training of Deep Bidirectional Transformers" data-author="Devlin, Jacob, Chang, Ming-Wei, et al." data-type="E-article" data-year="2019" data-rating="4.6" data-lang="English">
+                    <div class="book-thumb thumb-journal"><span class="thumb-emoji">🧬</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-journal">E-article</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.6</span>
+                            </div>
+                        </div>
+                        <div class="book-title">BERT: Pre-training of Deep Bidirectional Transformers</div>
+                        <div class="book-authors">Devlin, Jacob, Chang, Ming-Wei, et al.</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>ACL Anthology</div>
+                            <span class="meta-year">2019</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Penerapan Machine Learning pada Sistem IoT di Indonesia" data-author="Pratama, Andi, Sari, Rina Kurnia" data-type="E-article" data-year="2024" data-rating="3.8" data-lang="ID">
+                    <div class="book-thumb thumb-journal"><span class="thumb-emoji">📡</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-journal">E-article</span>
+                            <span class="lang-badge lang-id">ID</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
+                                <span class="rating-val">3.8</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Penerapan Machine Learning pada Sistem IoT di Indonesia</div>
+                        <div class="book-authors">Pratama, Andi, Sari, Rina Kurnia</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Jurnal IPTEK Indonesia</div>
+                            <span class="meta-year">2024</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book-card" data-title="Climate Change and Biodiversity: A Systematic Review" data-author="Johnson, Emma L., Kim, Soo-Yeon" data-type="E-article" data-year="2025" data-rating="4.4" data-lang="English">
+                    <div class="book-thumb thumb-journal"><span class="thumb-emoji">🌿</span></div>
+                    <div class="book-info">
+                        <div class="book-top">
+                            <span class="book-type-badge badge-journal">E-article</span>
+                            <span class="lang-badge lang-english">English</span>
+                            <div class="star-row">
+                                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
+                                <span class="rating-val">4.4</span>
+                            </div>
+                        </div>
+                        <div class="book-title">Climate Change and Biodiversity: A Systematic Review</div>
+                        <div class="book-authors">Johnson, Emma L., Kim, Soo-Yeon</div>
+                        <div class="book-meta">
+                            <div class="meta-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>Nature Sustainability</div>
+                            <span class="meta-year">2025</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- FILTER POPUP -->
+    <div class="fp-overlay" id="fpOverlay" onclick="closeOnOverlay(event)">
+        <div class="fp-panel">
+            <div class="fp-header">
+                <span class="fp-title">Filter Lanjutan</span>
+                <button class="fp-close" onclick="closeFilter()">✕</button>
+            </div>
+
+            <div class="fp-section">
+                <div class="fp-label">Language</div>
+                <div class="fp-chips">
+                    <div class="fp-chip" onclick="toggleChip(this)">ID</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">English</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">CN</div>
+                </div>
+            </div>
+
+            <div class="fp-section">
+                <div class="fp-label">Category</div>
+                <div class="fp-chips">
+                    <div class="fp-chip" onclick="toggleChip(this)">Textbook</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">E-book</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">E-article</div>
+                </div>
+            </div>
+
+            <div class="fp-section">
+                <div class="fp-label">Year</div>
+                <div class="year-range-wrap">
+                    <div class="year-picker-row">
+                        <span class="year-picker-label">Tahun awal</span>
+                        <div class="year-chips-scroll" id="startYearPicker"></div>
+                    </div>
+                    <div class="year-picker-row" style="margin-top:10px">
+                        <span class="year-picker-label">Tahun akhir</span>
+                        <div class="year-chips-scroll" id="endYearPicker"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fp-section">
+                <div class="fp-label">Rating</div>
+                <div class="fp-chips">
+                    <div class="fp-chip" onclick="toggleChip(this)">⭐ 5–4</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">⭐ 4–3</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">⭐ 3–2</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">⭐ 2–1</div>
+                    <div class="fp-chip" onclick="toggleChip(this)">⭐ 1–0</div>
+                </div>
+            </div>
+
+            <div class="fp-footer">
+                <button class="fp-btn-reset" onclick="resetFilter()">Reset</button>
+                <button class="fp-btn-apply" onclick="applyFilter()">Apply</button>
+            </div>
+        </div>
+    </div>
+    <script src="scripting.js"></script>
+</body>
+</html>
